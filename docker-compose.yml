@@ -1,0 +1,16 @@
+version: '2.4'
+
+services:
+  redis:
+    image: redis:latest
+    volumes:
+      - ./redis_data/redis/data:/data
+    ports:
+      - 6379:6379
+
+  flower:
+    image: mher/flower:0.9.5
+    command: ["--url_prefix=flower", "--broker=redis://redis:6379/2"]
+    ports:
+      - 5555:5555
+    restart: unless-stopped

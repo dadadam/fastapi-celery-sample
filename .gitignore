@@ -1,0 +1,6 @@
+.vscode/
+redis_data/
+venv/
+
+*.pyc
+.env
