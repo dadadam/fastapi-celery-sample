@@ -16,3 +16,15 @@ def test_celery(word: str) -> str:
     return {
         "message": word
     }
+
+
+@celery_app.task(acks_late=True, queue="test-queue")
+def scheduled_task() -> str:
+    print("Task started")
+    for i in range(1, 11):
+        sleep(1)
+        current_task.update_state(state='PROGRESS',
+                                  meta={'process_percent': i*10})
+    return {
+        "message": "Hello world!!!"
+    }

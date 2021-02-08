@@ -9,4 +9,11 @@ celery_app = Celery("worker",
 
 # celery_app.conf.task_routes = {"src.worker.test_celery": "test-queue"}
 
+celery_app.conf.beat_schedule = {
+    'add-every-30-seconds': {
+        'task': 'src.worker.scheduled_task',
+        'schedule': 30.0,
+    },
+}
+
 celery_app.conf.update(task_track_started=True)
